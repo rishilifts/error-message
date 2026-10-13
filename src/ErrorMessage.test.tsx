@@ -3,6 +3,26 @@ import { render } from '@testing-library/react';
 import { ErrorMessage } from './ErrorMessage';
 
 describe('ErrorMessage', () => {
+  it.each([
+    'span' as const,
+    ({ children }: { children: React.ReactNode }) => (
+      <strong>{children}</strong>
+    ),
+  ])('uses as before render for %s', (as) => {
+    const renderMessage = jest.fn(() => <em>wrong renderer</em>);
+    const { container } = render(
+      <ErrorMessage
+        as={as}
+        errors={{ test: { type: 'required', message: 'Required' } }}
+        name="test"
+        render={renderMessage}
+      />,
+    );
+    expect(container.textContent).toBe('Required');
+    expect(container.querySelector('span, strong')).not.toBeNull();
+    expect(renderMessage).not.toHaveBeenCalled();
+  });
+
   it('should render correctly', () => {
     const { asFragment } = render(<ErrorMessage name="test" errors={{}} />);
 
