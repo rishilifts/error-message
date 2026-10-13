@@ -18,7 +18,9 @@ exports[`ErrorMessage should render correctly with flat errors and as with compo
 
 exports[`ErrorMessage should render correctly with flat errors and as with component and render 1`] = `
 <DocumentFragment>
-  flat
+  <div>
+    flat
+  </div>
 </DocumentFragment>
 `;
 
