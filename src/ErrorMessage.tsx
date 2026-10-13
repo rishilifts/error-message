@@ -31,12 +31,17 @@ const ErrorMessage = <
 
   return React.isValidElement(as)
     ? React.cloneElement(as, props)
+    : as
+    ? React.createElement(
+        as as React.ComponentType<any> | keyof JSX.IntrinsicElements,
+        props,
+      )
     : render
     ? (render({
         message: messageFromRegister || message,
         messages: types,
       }) as React.ReactElement)
-    : React.createElement((as as string) || React.Fragment, props);
+    : React.createElement(React.Fragment, props);
 };
 
 export { ErrorMessage };
